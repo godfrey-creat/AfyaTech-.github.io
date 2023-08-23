@@ -4,20 +4,18 @@ Contains the class DBStorage
 """
 
 import models
-from models.amenity import Amenity
+from models.hospital import Hospitals
 from models.base_model import BaseModel, Base
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
+from models.doctor import Doctor
+from models.prescription import Prescription
+from models.patient import Patient
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Amenity": Amenity, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+classes = {"Base_model": Base_model, "Doctor": Doctor,
+           "Hospital": Hospital, "Patient": Patient, "Prescription": Prescription}
 
 
 class DBStorage:
@@ -27,17 +25,17 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
-        HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
-        HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
-        HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
-        HBNB_ENV = getenv('HBNB_ENV')
+        AfyaTech_MYSQL_DOCTOR = getenv('AfyaTach_MYSQL_DOCTOR')
+        AfyaTech_MYSQL_PWD = getenv('AfyaTech_MYSQL_PWD')
+        AfyaTech_MYSQL_HOST = getenv('AfyaTech_MYSQL_HOST')
+        AfyaTech_MYSQL_DB = getenv('AfyaTech_MYSQL_DB')
+        AfyaTech_ENV = getenv('AfyaTech_ENV')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      format(HBNB_MYSQL_USER,
-                                             HBNB_MYSQL_PWD,
-                                             HBNB_MYSQL_HOST,
-                                             HBNB_MYSQL_DB))
-        if HBNB_ENV == "test":
+                                      format(AfyaTech_MYSQL_DOCTOR,
+                                             AfyaTech_MYSQL_PWD,
+                                             AfyaTech_MYSQL_HOST,
+                                             AfyaTech_MYSQL_DB))
+        if AfyaTech_ENV == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -67,7 +65,7 @@ class DBStorage:
         self.__session.add(obj)
 
     def save(self):
-        """commit all changes of the current database session"""
+        """commit a7ll changes of the current database session"""
         self.__session.commit()
 
     def delete(self, obj=None):

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" holds class User"""
+""" holds class Patient"""
 import hashlib
 import models
 from models.base_model import BaseModel, Base
@@ -12,7 +12,7 @@ from sqlalchemy.orm import relationship
 class Patient(BaseModel, Base):
     """Representation of a patient """
     if models.storage_t == 'db':
-        __tablename__ = 'patients'
+        __tablename__ = 'patient'
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
@@ -20,12 +20,12 @@ class Patient(BaseModel, Base):
         hospitals = relationship(
             "Hospital",
             cascade="all, delete, delete-orphan",
-            backref="user"
+            backref="doctor"
         )
         prescriptions = relationship(
             "Prescription",
             cascade="all, delete, delete-orphan",
-            backref="user"
+            backref="doctor"
         )
     else:
         email = ""
@@ -33,15 +33,33 @@ class Patient(BaseModel, Base):
         first_name = ""
         last_name = ""
 
-    def __init__(self, *args, **kwargs):
-        """initializes patient"""
-        super().__init__(*args, **kwargs)
+    def authenticate():
+        #dictionary to store patients credentials securely.
+        patient_credentials = {}
+        patient_id = input("Enter your patient ID:")
+        password = input("Enter your password")
 
-    def __setattr__(self, __name: str, __value) -> None:
-        '''Sets an attribute of this class to a given value.'''
-        if __name == 'password':
-            if type(__value) is str:
-                m = hashlib.md5(bytes(__value, 'utf-8'))
-                super().__setattr__(__name, m.hexdigest())
+        if patient_id in patient_credentials and patient_credentials[patient_id] == password:
+            return True
         else:
-            super().__setattr__(__name, __value)
+            return False
+
+    def read_prescription():
+        with open("prescription.py", "r") as file:
+            content = file.read()
+            return content
+    def main():
+        if authenticate():
+            print("Authentication succesful!")
+            prescription_content = read_prescription()
+            print("prescription content:")
+            print(prescription_content)
+        else:
+            print("Authentication Failed. Accesss denied!")
+
+    if __name__ == "__main__":
+        main()
+
+  
+
+    
