@@ -6,6 +6,7 @@ from datetime import datetime
 import models
 from models.hospital import Hospital
 from models.base_model import BaseModel
+from models.patient import Patient
 from models.prescription import Prescription
 from models.doctor import Doctor
 import shlex  # for splitting the line along spaces except in double quotes

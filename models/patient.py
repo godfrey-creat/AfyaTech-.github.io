@@ -10,7 +10,7 @@ from sqlalchemy.orm import relationship
 
 
 class Patient(BaseModel, Base):
-    """Representation of a patient """
+    """Representation of a Patient """
     if models.storage_t == 'db':
         __tablename__ = 'patient'
         email = Column(String(128), nullable=False)
