@@ -45,15 +45,15 @@ class Patient(BaseModel, Base):
             return False
 
     def read_prescription():
-        with open("prescription.py", "r") as file:
+        with open("prescription_file.txt", "r") as file:
             content = file.read()
             return content
     def main():
         if authenticate():
             print("Authentication succesful!")
             prescription_content = read_prescription()
-            print("prescription content:")
-            print(prescription_content)
+            print("prescription_file content:")
+            print(prescription_file_content)
         else:
             print("Authentication Failed. Accesss denied!")
 

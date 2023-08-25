@@ -22,8 +22,8 @@ class Doctor(BaseModel, Base):
             cascade="all, delete, delete-orphan",
             backref="doctor"
         )
-        reviews = relationship(
-            "Review",
+        prescription = relationship(
+            "Prescription",
             cascade="all, delete, delete-orphan",
             backref="doctor"
         )
@@ -45,3 +45,16 @@ class Doctor(BaseModel, Base):
                 super().__setattr__(__name, m.hexdigest())
         else:
             super().__setattr__(__name, __value)
+
+            # doctor.py
+
+def doctor_prescription(prescription):
+    """ function that take doctor prescription and store in prescription_file.txt """
+    try:
+        with open('prescription_file.txt', 'a') as file:
+            file.write(prescription + '\n')
+        return True  # Return True if writing to file is successful
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False  # Return False if there was an error
+
