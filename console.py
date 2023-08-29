@@ -31,6 +31,11 @@ class AfyaTechCommand(cmd.Cmd):
         """Quit command to exit the program"""
         return True
 
+    def authenticate():
+        #dictionary to store patients credentials
+securely.                                                 patient_credentials = {}                          patient_id = input("Enter your patient ID:")                                                        password = input("Enter your password")                                                             if patient_id in patient_credentials and patient_credentials[patient_id] == password:                   return True                                   else:                                                 return False
+
+
     def _key_value_parser(self, args):
         """creates a dictionary from a list of strings"""
         new_dict = {}
